@@ -13,7 +13,13 @@ import { Heading4, Paragraph } from "@/components/ui/texts";
 import { hp, wp } from "@/utils/common";
 import { Fonts } from "@/constants/fonts";
 import Inputbox from "@/components/ui/input";
-import { AntDesign, Entypo, Feather, Foundation, MaterialIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Entypo,
+  Feather,
+  Foundation,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import Button from "@/components/ui/button";
 import colors from "@/constants/colors";
 import { router } from "expo-router";
@@ -27,7 +33,6 @@ const SignUpScreen = () => {
 
   // FORM SUBMISSION
   const handelForm = () => {
-    // @ts-ignore
     router.push("/(routes)/(auth)/verify");
   };
 
@@ -138,7 +143,7 @@ const LoginScreenstyles = StyleSheet.create({
     flex: 1,
     width: wp(90),
     alignItems: "center",
-    rowGap: hp(3),
+    rowGap: hp(5),
     marginTop: -42,
   },
   forgotPasswordContainer: {

@@ -10,6 +10,8 @@ import { Poppins_500Medium } from "@expo-google-fonts/poppins";
 import { Nunito_400Regular } from "@expo-google-fonts/nunito";
 import { Stack } from "expo-router";
 import React from "react";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,7 +42,7 @@ function RootLayoutNav() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
 
   return (
-    <>
+    <Provider store={store}>
       {isUserLoggedIn ? (
         <View>{/* Your logged-in view goes here */}</View>
       ) : (
@@ -56,6 +58,6 @@ function RootLayoutNav() {
           <Stack.Screen name="(routes)/(auth)/verify/index" />
         </Stack>
       )}
-    </>
+    </Provider>
   );
 }

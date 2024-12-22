@@ -1,0 +1,1 @@
+export const SERVER_URI = "https://spas-bo-sick-matters.trycloudflare.com"
