@@ -1,14 +1,14 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id           String  @id @default(cuid())
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
   emailAddress String  @unique
   password     String
   name         String
@@ -18,11 +18,11 @@ model User {
 }
 
 model Token {
-  id           String   @id @default(cuid())
-  userId       String
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String   @db.ObjectId
   refreshToken String   @unique
   createdAt    DateTime @default(now())
-  expiresAt    DateTime @default(dbgenerated("now() + INTERVAL '12 days'"))
+  expiresAt    DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

@@ -20,6 +20,7 @@ export class UserAuthController {
     async (req: Request, res: Response): Promise<void> => {
       const { name, emailAddress, password: plainPassword } = req.body;
 
+
       // Validate required fields
       if (!name || !emailAddress || !plainPassword) {
         throw new ApiError(400, "Fields cannot be empty");
@@ -45,6 +46,7 @@ export class UserAuthController {
         },
       });
 
+
       if (isEmailAlreadyExist) {
         throw new ApiError(400, "Email already exists");
       }
@@ -60,7 +62,7 @@ export class UserAuthController {
           password: hashedPassword,
         },
         select: {
-          lastName: true,
+          name: true,
           emailAddress: true,
           imageUrl: true,
         },
@@ -80,8 +82,7 @@ export class UserAuthController {
         where: { emailAddress },
         select: {
           id: true,
-          firstName: true,
-          lastName: true,
+          name: true,
           emailAddress: true,
           password: true,
           imageUrl: true,
@@ -102,19 +103,20 @@ export class UserAuthController {
         throw new ApiError(400, "Password is incorrect");
       }
 
-      const { accessToken, refreshToken } =
-        AuthUtility.generateTokens(registeredUser);
+      const { accessToken, refreshToken } = AuthUtility.generateTokens(
+        registeredUser!
+      );
 
-      await db.token.create({
-        data: {
-          userId: registeredUser.id,
-          refreshToken,
-        },
-      });
+      // Save refresh token in the database
+      // await db.token.create({
+      //   data:{
+      //       userId: registeredUser.id,
+      //       refreshToken,
+      //   }
+      // });
 
       const refinedUser = {
-        firstName: registeredUser.firstName,
-        lastName: registeredUser.lastName,
+        name: registeredUser.name,
         emailAddress: registeredUser.emailAddress,
         imageUrl: registeredUser.imageUrl,
       };
@@ -131,8 +133,8 @@ export class UserAuthController {
 
   // USER PROFILE
   public static GetUserProfile = AsyncHandler(
-    async (req: Request, res: Response) => {
-      res.send(new ApiResponse(200, "Sucess", req.user));
+    async (req: Request, res: Response): Promise<void> => {
+      res.send(new ApiResponse(200, "Success", req.user));
     }
   );
 }
