@@ -13,13 +13,13 @@ import {
 } from "@src/helpers/server-functions";
 import { db } from "@src/db";
 import { AuthUtility } from "@src/utils/auth-utils";
+import { ServerUtility } from "@src/utils/server-utils";
 
 export class UserAuthController {
   // SIGNUP
   public static UserSignup = AsyncHandler(
     async (req: Request, res: Response): Promise<void> => {
       const { name, emailAddress, password: plainPassword } = req.body;
-
 
       // Validate required fields
       if (!name || !emailAddress || !plainPassword) {
@@ -46,7 +46,6 @@ export class UserAuthController {
         },
       });
 
-
       if (isEmailAlreadyExist) {
         throw new ApiError(400, "Email already exists");
       }
@@ -65,8 +64,21 @@ export class UserAuthController {
           name: true,
           emailAddress: true,
           imageUrl: true,
+          id: true,
         },
       });
+
+      // send OTP
+
+      if (RegisteredUser && RegisteredUser.emailAddress) {
+        const user = new ServerUtility(
+          RegisteredUser.emailAddress,
+          RegisteredUser.id
+        );
+        await user.SendEmail();
+      } else {
+        console.error("Email address is missing!");
+      }
 
       // Respond with success
       res.json(new ApiResponse(200, "Signup Successful", RegisteredUser));
@@ -135,6 +147,14 @@ export class UserAuthController {
   public static GetUserProfile = AsyncHandler(
     async (req: Request, res: Response): Promise<void> => {
       res.send(new ApiResponse(200, "Success", req.user));
+    }
+  );
+
+  // VERIFY OTP
+
+  public static VerifyOtp = AsyncHandler(
+    async (req: Request, res: Response): Promise<void> => {
+      const { otp } = req.body;
     }
   );
 }

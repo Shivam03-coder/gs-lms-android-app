@@ -1,5 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -15,6 +15,7 @@ model User {
   imageUrl     String?
   role         Role    @default(user)
   token        Token[]
+  Otp          Otp?
 }
 
 model Token {
@@ -24,6 +25,15 @@ model Token {
   createdAt    DateTime @default(now())
   expiresAt    DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Otp {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String   @unique @db.ObjectId
+  otp      String
+  expireAt DateTime
+  user     User     @relation(fields: [userId], references: [id])
+  cartedAt DateTime @default(now())
 }
 
 enum Role {
