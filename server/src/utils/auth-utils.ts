@@ -9,10 +9,10 @@ export class AuthUtility {
   public static generateTokens = (
     registeredUser: UserType
   ): { accessToken: string; refreshToken: string } => {
-    if (
-      !appEnvConfigs.ACCESS_TOKEN_SECRET_KEY ||
-      !appEnvConfigs.REFRESH_TOKEN_SECRET_KEY
-    ) {
+    const accessTokenSecret = appEnvConfigs.ACCESS_TOKEN_SECRET_KEY;
+    const refreshTokenSecret = appEnvConfigs.REFRESH_TOKEN_SECRET_KEY;
+
+    if (!accessTokenSecret || !refreshTokenSecret) {
       throw new ApiError(409, "Token signing keys are not properly configured");
     }
 
@@ -24,14 +24,15 @@ export class AuthUtility {
       );
 
     return {
-      accessToken: signToken(appEnvConfigs.ACCESS_TOKEN_SECRET_KEY, "4d"), // Access token expires in 4 days
-      refreshToken: signToken(appEnvConfigs.REFRESH_TOKEN_SECRET_KEY, "12d"), // Refresh token expires in 12 days
+      accessToken: signToken(accessTokenSecret, "4d"),
+      refreshToken: signToken(refreshTokenSecret, "12d"),
     };
   };
 
   // Function to renew JWT tokens using an old refresh token
   public static RenewjwtTokens = async (oldRefreshToken: string) => {
     try {
+      // Find the user associated with the old refresh token
       const authenticatedUser = await db.token.findUnique({
         where: {
           refreshToken: oldRefreshToken,
@@ -45,11 +46,14 @@ export class AuthUtility {
         throw new ApiError(409, "Please login again");
       }
 
+      // Verify the old refresh token
       try {
-        jwt.verify(
-          oldRefreshToken,
-          appEnvConfigs.REFRESH_TOKEN_SECRET_KEY! ?? ""
-        );
+        const refreshTokenSecret = appEnvConfigs.REFRESH_TOKEN_SECRET_KEY;
+        if (!refreshTokenSecret) {
+          throw new ApiError(500, "Refresh token secret key is missing");
+        }
+
+        jwt.verify(oldRefreshToken, refreshTokenSecret);
       } catch (err) {
         throw new ApiError(409, "Invalid refresh token, please login again");
       }
@@ -57,19 +61,23 @@ export class AuthUtility {
       const { user } = authenticatedUser;
 
       if (!user) {
-        throw new Error("USER NOT FOUND");
+        throw new ApiError(404, "User not found");
       }
 
+      // Generate new tokens
       const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
         AuthUtility.generateTokens(user);
 
+      // Update the refresh token in the database
       await db.token.update({
         where: { refreshToken: oldRefreshToken },
         data: { refreshToken: newRefreshToken },
       });
 
+      // Return the new tokens
       return { newAccessToken, newRefreshToken };
     } catch (err: any) {
+      // Handle unexpected errors
       throw new ApiError(500, err.message || "Unexpected error occurred");
     }
   };

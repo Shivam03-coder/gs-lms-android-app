@@ -45,13 +45,23 @@ export class ServerUtility {
         throw new Error("User not found");
       }
 
-      await db.otp.create({
-        data: {
-          otp: otp,
+      await db.otp.upsert({
+        where: {
+          id: user.id,
+        },
+        update: {
+          otp: otp ?? "",
+        },
+        create: {
+          otp: otp ?? "",
           expireAt: expireAt,
+          user: {
+            connect: {
+              id: this.userId,
+            },
+          },
         },
       });
-
       console.log(`Email sent: ${info.messageId}`);
     } catch (error) {
       console.log(error);

@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id           String  @id @default(auto()) @map("_id") @db.ObjectId
-  emailAddress String  @unique
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  emailAddress String   @unique
   password     String
   name         String
   imageUrl     String?
-  role         Role    @default(user)
+  role         Role     @default(user)
   token        Token[]
   Otp          Otp?
+  UserVerified Boolean? @default(false)
 }
 
 model Token {
@@ -32,7 +33,7 @@ model Otp {
   userId   String   @unique @db.ObjectId
   otp      String
   expireAt DateTime
-  user     User     @relation(fields: [userId], references: [id])
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   cartedAt DateTime @default(now())
 }
 

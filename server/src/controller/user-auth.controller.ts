@@ -14,6 +14,7 @@ import {
 import { db } from "@src/db";
 import { AuthUtility } from "@src/utils/auth-utils";
 import { ServerUtility } from "@src/utils/server-utils";
+import { userInfo } from "os";
 
 export class UserAuthController {
   // SIGNUP
@@ -86,28 +87,21 @@ export class UserAuthController {
   );
 
   // SIGNIN
+
   public static UserSignin = AsyncHandler(
     async (req: Request, res: Response): Promise<void> => {
-      const { emailAddress, password: plainPassword } = req.body;
+      const { emailAddress, password } = req.body;
 
       const registeredUser = await db.user.findUnique({
         where: { emailAddress },
-        select: {
-          id: true,
-          name: true,
-          emailAddress: true,
-          password: true,
-          imageUrl: true,
-          role: true,
-        },
       });
 
       if (!registeredUser) {
-        throw new ApiError(400, "User does not exist");
+        throw new ApiError(404, "USER DOESNOT EXISTS");
       }
 
       const isPasswordCorrect = await verifyPassword(
-        plainPassword,
+        password,
         registeredUser.password
       );
 
@@ -119,42 +113,96 @@ export class UserAuthController {
         registeredUser!
       );
 
-      // Save refresh token in the database
-      // await db.token.create({
-      //   data:{
-      //       userId: registeredUser.id,
-      //       refreshToken,
-      //   }
-      // });
+      if (!accessToken || !refreshToken) {
+        throw new ApiError(400, "TOKEN NOT FOUND");
+      }
 
-      const refinedUser = {
-        name: registeredUser.name,
-        emailAddress: registeredUser.emailAddress,
-        imageUrl: registeredUser.imageUrl,
-      };
+      const expiresAt = new Date(Date.now() + 12 * 24 * 60 * 60 * 1000);
+
+      try {
+        await db.token.upsert({
+          where: {
+            id: registeredUser.id,
+          },
+          update: {
+            refreshToken,
+          },
+          create: {
+            refreshToken,
+            expiresAt,
+            userId: registeredUser.id,
+          },
+        });
+        console.log("Token saved in DB succesfully");
+      } catch (error) {
+        console.log(error);
+      }
 
       res.status(200).json(
         new ApiResponse(200, "Login successful", {
           accessToken,
           refreshToken,
-          user: refinedUser,
         })
       );
     }
   );
 
+    // VERIFY OTP
+
+    public static VerifyOtp = AsyncHandler(
+      async (req: Request, res: Response): Promise<void> => {
+        const { otp, emailAddress } = req.body;
+  
+        // Find the user by email address
+        const user = await db.user.findUnique({
+          where: { emailAddress: emailAddress },
+        });
+  
+        if (!user) {
+          throw new ApiError(404, "USER NOT FOUND");
+        }
+  
+        // Find the OTP related to this user (ensure OTP exists and has not expired)
+        const userRelatedOtp = await db.otp.findUnique({
+          where: { userId: user.id },
+        });
+  
+        if (!userRelatedOtp) {
+          throw new ApiError(404, "OTP NOT FOUND");
+        }
+  
+        const currentTime = new Date();
+  
+        // Validate OTP expiration and correctness in a single block
+        if (currentTime > userRelatedOtp.expireAt) {
+          throw new ApiError(400, "OTP EXPIRED");
+        }
+  
+        if (otp !== userRelatedOtp.otp) {
+          throw new ApiError(400, "INVALID OTP");
+        }
+  
+        await db.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            UserVerified: true,
+          },
+        });
+  
+        // OTP is valid and not expired, proceed with successful response
+        res.status(200).json(new ApiResponse(200, "OTP VERIFIED SUCCESSFULLY"));
+      }
+    );
+
   // USER PROFILE
+
   public static GetUserProfile = AsyncHandler(
     async (req: Request, res: Response): Promise<void> => {
       res.send(new ApiResponse(200, "Success", req.user));
     }
   );
 
-  // VERIFY OTP
 
-  public static VerifyOtp = AsyncHandler(
-    async (req: Request, res: Response): Promise<void> => {
-      const { otp } = req.body;
-    }
-  );
 }

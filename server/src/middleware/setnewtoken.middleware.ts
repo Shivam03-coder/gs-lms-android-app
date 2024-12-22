@@ -6,7 +6,9 @@ import { AuthUtility } from "@src/utils/auth-utils";
 export const GetnewToken = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { accessToken, refreshToken } = req.cookies;
+      // Retrieve the tokens from the headers (not from cookies for React Native)
+      const accessToken = req.headers["authorization"]?.split(" ")[1];
+      const refreshToken = req.headers["refresh-token"];
 
       if (!accessToken && !refreshToken) {
         throw new ApiError(401, "Unauthorized - Tokens not provided");
@@ -15,21 +17,27 @@ export const GetnewToken = AsyncHandler(
       if (accessToken && !isTokenExpired(accessToken)) {
         req.headers["authorization"] = `Bearer ${accessToken}`;
       } else if (refreshToken) {
-        // Renew tokens using refresh token
         const { newAccessToken, newRefreshToken } =
-          await AuthUtility.RenewjwtTokens(refreshToken);
+          await AuthUtility.RenewjwtTokens(refreshToken as string);
 
-        // Update headers and set cookies
+        // Update the headers and send the new tokens in the response
         req.headers["authorization"] = `Bearer ${newAccessToken}`;
         res
           .cookie("accessToken", newAccessToken, options)
           .cookie("refreshToken", newRefreshToken, options);
+
+        // Store the new tokens in the response headers for React Native (manual handling of tokens)
+        res.setHeader("accessToken", newAccessToken);
+        res.setHeader("refreshToken", newRefreshToken);
       } else {
-        throw new ApiError(401, "Unauthorized - Refresh token is invalid");
+        // If no valid token or refresh token is found, reject the request
+        throw new ApiError(401, "Unauthorized - Invalid or expired tokens");
       }
+
+      // Continue to the next middleware/handler
       next();
     } catch (error) {
-      console.error("Error in GetnewToken middleware:", error); // Debug: Log error
+      console.error("Error in GetnewToken middleware:", error); // Log the error for debugging
       next(error);
     }
   }

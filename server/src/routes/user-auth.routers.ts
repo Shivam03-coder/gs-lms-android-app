@@ -7,6 +7,7 @@ export const AppRouter = Router();
 
 AppRouter.route("/signup").post(UserAuthController.UserSignup);
 AppRouter.route("/signin").post(UserAuthController.UserSignin);
+AppRouter.route("/verify-user").post(UserAuthController.VerifyOtp);
 
 // PROTECTED ROUTES
 AppRouter.route("/user").get(
