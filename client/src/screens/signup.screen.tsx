@@ -46,6 +46,7 @@ const SignUpScreen = () => {
       if (code === 200 && data) {
         // Store res.data.id in AsyncStorage
         await AsyncStorage.setItem("userId", JSON.stringify(data.id));
+        await AsyncStorage.setItem("email", JSON.stringify(data.emailAddress));
         toast.show("USer Signup successful!", { type: "success" });
         router.push("/(routes)/(auth)/verify");
         setName("");

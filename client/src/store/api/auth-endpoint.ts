@@ -1,5 +1,10 @@
 import { ApiServices } from "../middleware/apiservices";
-import { UserSignUpInfo, UserSignupResData } from "../types/api";
+import {
+  ApiRes,
+  EmailVerifyInfo,
+  UserSignUpInfo,
+  UserSignupResData,
+} from "../types/api";
 
 const headers = {
   "content-type": "application/json",
@@ -13,6 +18,15 @@ const AuthEndpoints = ApiServices.injectEndpoints({
         headers,
         method: "POST",
         body: userInfo,
+      }),
+    }),
+
+    VerifyUser: build.mutation<ApiRes, EmailVerifyInfo>({
+      query: (otp) => ({
+        url: "/auth/verify-user",
+        method: "POST",
+        headers,
+        body: otp,
       }),
     }),
   }),

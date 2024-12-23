@@ -152,11 +152,11 @@ export class UserAuthController {
 
   public static VerifyOtp = AsyncHandler(
     async (req: Request, res: Response): Promise<void> => {
-      const { otp, emailAddress } = req.body;
+      const { otp, email } = req.body;
 
       // Find the user by email address
       const user = await db.user.findUnique({
-        where: { emailAddress: emailAddress },
+        where: { emailAddress: email },
       });
 
       if (!user) {

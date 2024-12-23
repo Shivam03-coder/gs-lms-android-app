@@ -16,3 +16,5 @@ export interface UserSignupResData extends ApiRes {
     id: string;
   };
 }
+
+export type EmailVerifyInfo = { otp: string; email: string };
