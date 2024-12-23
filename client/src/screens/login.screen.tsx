@@ -30,7 +30,7 @@ const LoginScreen = () => {
   const [Password, setPassword] = useState("");
   const [Loading, setLoading] = useState<boolean>(false);
   const { value } = useAppSelector((state) => state.global);
-  console.log("🚀 ~ LoginScreen ~ value:", value)
+  console.log("🚀 ~ LoginScreen ~ value:", value);
 
   // FORM SUBMISSION
   const handelForm = () => {
@@ -176,7 +176,7 @@ const LoginScreenstyles = StyleSheet.create({
     flex: 1,
     width: wp(90),
     alignItems: "center",
-    rowGap: hp(4),
+    rowGap: hp(2.3),
     marginTop: -42,
   },
   forgotPasswordContainer: {

@@ -12,6 +12,7 @@ import { Stack } from "expo-router";
 import React from "react";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
+import { ToastProvider } from "react-native-toast-notifications";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,21 +44,23 @@ function RootLayoutNav() {
 
   return (
     <Provider store={store}>
-      {isUserLoggedIn ? (
-        <View>{/* Your logged-in view goes here */}</View>
-      ) : (
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="index" />
-          <Stack.Screen name="(routes)/(home)/welcome/index" />
-          <Stack.Screen name="(routes)/(auth)/login/index" />
-          <Stack.Screen name="(routes)/(auth)/signup/index" />
-          <Stack.Screen name="(routes)/(auth)/verify/index" />
-        </Stack>
-      )}
+      <ToastProvider placement="top">
+        {isUserLoggedIn ? (
+          <View>{/* Your logged-in view goes here */}</View>
+        ) : (
+          <Stack
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="index" />
+            <Stack.Screen name="(routes)/(home)/welcome/index" />
+            <Stack.Screen name="(routes)/(auth)/login/index" />
+            <Stack.Screen name="(routes)/(auth)/signup/index" />
+            <Stack.Screen name="(routes)/(auth)/verify/index" />
+          </Stack>
+        )}
+      </ToastProvider>
     </Provider>
   );
 }

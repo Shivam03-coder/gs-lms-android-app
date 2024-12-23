@@ -1,1 +1,1 @@
-export const SERVER_URI = "https://spas-bo-sick-matters.trycloudflare.com"
+export const SERVER_URI = "https://swim-type-admissions-showed.trycloudflare.com"

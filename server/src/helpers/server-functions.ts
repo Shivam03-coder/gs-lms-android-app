@@ -37,15 +37,13 @@ export class ApiError extends Error {
 
 //API RESPOSNE FUNCTION
 
-export class ApiResponse {
-  status: string;
-  statuscode: number;
+export class ApiResponse<T = any> {
   message: string;
-  data?: any;
+  data?: T;
+  code: number;
 
-  constructor(statuscode: number, message: string, data?: any) {
-    this.status = "Sucess";
-    this.statuscode = statuscode;
+  constructor(code: number, message: string, data?: T) {
+    this.code = code;
     this.message = message;
     this.data = data;
   }

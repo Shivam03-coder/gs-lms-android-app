@@ -64,7 +64,6 @@ export class UserAuthController {
         select: {
           name: true,
           emailAddress: true,
-          imageUrl: true,
           id: true,
         },
       });
@@ -82,7 +81,9 @@ export class UserAuthController {
       }
 
       // Respond with success
-      res.json(new ApiResponse(200, "Signup Successful", RegisteredUser));
+      res
+        .status(200)
+        .json(new ApiResponse(200, "Signup Successful", RegisteredUser));
     }
   );
 
@@ -147,54 +148,45 @@ export class UserAuthController {
     }
   );
 
-    // VERIFY OTP
+  // VERIFY OTP
 
-    public static VerifyOtp = AsyncHandler(
-      async (req: Request, res: Response): Promise<void> => {
-        const { otp, emailAddress } = req.body;
-  
-        // Find the user by email address
-        const user = await db.user.findUnique({
-          where: { emailAddress: emailAddress },
-        });
-  
-        if (!user) {
-          throw new ApiError(404, "USER NOT FOUND");
-        }
-  
-        // Find the OTP related to this user (ensure OTP exists and has not expired)
-        const userRelatedOtp = await db.otp.findUnique({
-          where: { userId: user.id },
-        });
-  
-        if (!userRelatedOtp) {
-          throw new ApiError(404, "OTP NOT FOUND");
-        }
-  
-        const currentTime = new Date();
-  
-        // Validate OTP expiration and correctness in a single block
-        if (currentTime > userRelatedOtp.expireAt) {
-          throw new ApiError(400, "OTP EXPIRED");
-        }
-  
-        if (otp !== userRelatedOtp.otp) {
-          throw new ApiError(400, "INVALID OTP");
-        }
-  
-        await db.user.update({
-          where: {
-            id: user.id,
-          },
-          data: {
-            UserVerified: true,
-          },
-        });
-  
-        // OTP is valid and not expired, proceed with successful response
-        res.status(200).json(new ApiResponse(200, "OTP VERIFIED SUCCESSFULLY"));
+  public static VerifyOtp = AsyncHandler(
+    async (req: Request, res: Response): Promise<void> => {
+      const { otp, emailAddress } = req.body;
+
+      // Find the user by email address
+      const user = await db.user.findUnique({
+        where: { emailAddress: emailAddress },
+      });
+
+      if (!user) {
+        throw new ApiError(404, "USER NOT FOUND");
       }
-    );
+
+      // Find the OTP related to this user (ensure OTP exists and has not expired)
+      const userRelatedOtp = await db.otp.findUnique({
+        where: { userId: user.id },
+      });
+
+      if (!userRelatedOtp) {
+        throw new ApiError(404, "OTP NOT FOUND");
+      }
+
+      const currentTime = new Date();
+
+      // Validate OTP expiration and correctness in a single block
+      if (currentTime > userRelatedOtp.expireAt) {
+        throw new ApiError(400, "OTP EXPIRED");
+      }
+
+      if (otp !== userRelatedOtp.otp) {
+        throw new ApiError(400, "INVALID OTP");
+      }
+
+      // OTP is valid and not expired, proceed with successful response
+      res.status(200).json(new ApiResponse(200, "OTP VERIFIED SUCCESSFULLY"));
+    }
+  );
 
   // USER PROFILE
 
@@ -203,6 +195,4 @@ export class UserAuthController {
       res.send(new ApiResponse(200, "Success", req.user));
     }
   );
-
-
 }

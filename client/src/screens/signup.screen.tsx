@@ -13,27 +13,50 @@ import { Heading4, Paragraph } from "@/components/ui/texts";
 import { hp, wp } from "@/utils/common";
 import { Fonts } from "@/constants/fonts";
 import Inputbox from "@/components/ui/input";
-import {
-  AntDesign,
-  Entypo,
-  Feather,
-  Foundation,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { Entypo, Feather, Foundation, MaterialIcons } from "@expo/vector-icons";
 import Button from "@/components/ui/button";
 import colors from "@/constants/colors";
 import { router } from "expo-router";
+import { useSignupuserMutation } from "@/store/api/auth-endpoint";
+import { useToast } from "react-native-toast-notifications";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignUpScreen = () => {
   const [ShowPassword, setShowPassword] = useState<boolean>(false);
   const [Name, setName] = useState<string>("");
   const [Email, setEmail] = useState<string>("");
-  const [Password, setPassword] = useState("");
-  const [Loading, setLoading] = useState<boolean>(false);
+  const [Password, setPassword] = useState<string>("");
+  const [SignUpUser, { isLoading }] = useSignupuserMutation();
+  const toast = useToast();
 
   // FORM SUBMISSION
-  const handelForm = () => {
-    router.push("/(routes)/(auth)/verify");
+  const handelForm = async () => {
+    try {
+      if (!Email.trim() || !Password.trim() || !Name.trim()) {
+        toast.show("All fields are required.", { type: "danger" });
+        return;
+      }
+      const res = await SignUpUser({
+        emailAddress: Email.trim(),
+        name: Name.trim(),
+        password: Password.trim(),
+      }).unwrap();
+
+      // Handle success response
+      if (res.code === 200 && res.data) {
+        // Store res.is in AsyncStorage
+        await AsyncStorage.setItem("userId", JSON.stringify(res.data.id));
+        toast.show("USer Signup successful!", { type: "success" });
+        setName("");
+        setName("");
+        setPassword("");
+      } else {
+        toast.show(res.message || "Something went wrong.", { type: "danger" });
+      }
+    } catch (error) {
+      console.log("🚀 ~ handelForm ~ error:", error);
+      toast.show("An unexpected error occurred.", { type: "danger" });
+    }
   };
 
   return (
@@ -49,7 +72,7 @@ const SignUpScreen = () => {
             {/* Heading */}
             <Heading4
               textstyle={[LoginScreenstyles.headingText]}
-              title="Lets Get Started !"
+              title="Let's Get Started!"
               fontFamily={Fonts.poppins}
             />
 
@@ -91,9 +114,9 @@ const SignUpScreen = () => {
                 }
               />
 
-              {/* Login Button */}
+              {/* Sign Up Button */}
               <Button
-                loading={Loading}
+                loading={isLoading}
                 onPress={handelForm}
                 width={90}
                 title="Sign-Up"
@@ -102,7 +125,7 @@ const SignUpScreen = () => {
               {/* Sign Up Section */}
               <View style={LoginScreenstyles.signUpContainer}>
                 <Paragraph
-                  title="Already have an account ?"
+                  title="Already have an account?"
                   textstyle={LoginScreenstyles.signUpText}
                 />
                 <TouchableOpacity
@@ -110,7 +133,7 @@ const SignUpScreen = () => {
                 >
                   <Paragraph
                     textstyle={LoginScreenstyles.signUpButton}
-                    title=" Sign-in"
+                    title="Sign-in"
                   />
                 </TouchableOpacity>
               </View>
@@ -143,16 +166,8 @@ const LoginScreenstyles = StyleSheet.create({
     flex: 1,
     width: wp(90),
     alignItems: "center",
-    rowGap: hp(5),
+    rowGap: hp(2.5),
     marginTop: -42,
-  },
-  forgotPasswordContainer: {
-    width: "100%",
-  },
-  forgotPasswordText: {
-    textAlign: "right",
-    color: colors.link,
-    textDecorationLine: "underline",
   },
   signUpContainer: {
     width: "100%",
@@ -166,19 +181,6 @@ const LoginScreenstyles = StyleSheet.create({
   },
   signUpButton: {
     color: colors.yellow,
-  },
-  oauthconatiner: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    columnGap: wp(2),
-  },
-  auth: {
-    flex: 1,
-    backgroundColor: colors.palepurple,
-    borderRadius: 12,
-    paddingVertical: 8,
   },
 });
 
