@@ -33,33 +33,27 @@ export default function RootLayout() {
   }, [fontLoaded]);
 
   if (!fontLoaded) {
-    return null; // Show a placeholder like a loader if needed
+    return null;
   }
 
   return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
-
   return (
     <Provider store={store}>
       <ToastProvider placement="top">
-        {isUserLoggedIn ? (
-          <View>{/* Your logged-in view goes here */}</View>
-        ) : (
-          <Stack
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name="index" />
-            <Stack.Screen name="(routes)/(home)/welcome/index" />
-            <Stack.Screen name="(routes)/(auth)/login/index" />
-            <Stack.Screen name="(routes)/(auth)/signup/index" />
-            <Stack.Screen name="(routes)/(auth)/verify/index" />
-          </Stack>
-        )}
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(routes)/(home)/welcome/index" />
+          <Stack.Screen name="(routes)/(auth)/login/index" />
+          <Stack.Screen name="(routes)/(auth)/signup/index" />
+          <Stack.Screen name="(routes)/(auth)/verify/index" />
+        </Stack>
       </ToastProvider>
     </Provider>
   );

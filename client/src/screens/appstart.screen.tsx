@@ -1,19 +1,33 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import React from "react";
 import ScreenWrapper from "@/components/shared/providers/screen-wrapper";
 import { Styles } from "@/styles/global";
 import Lottie from "@/components/shared/lotties";
-import { Heading1, Heading3, Paragraph } from "@/components/ui/texts";
+import { Heading3, Paragraph } from "@/components/ui/texts";
 import colors from "@/constants/colors";
 import { Fonts } from "@/constants/fonts";
 import { hp } from "@/utils/common";
 import Button from "@/components/ui/button";
-import { useUserInfoQuery } from "@/store/api/protected-route";
+import { Redirect, router } from "expo-router";
+import useAuth from "@/hooks/useAuth";
 
 const AppStartScreen = () => {
-  const { data, error } = useUserInfoQuery();
-  console.log("🚀 ~ AppStartScreen ~ error:", error)
-  console.log("🚀 ~ AppStartScreen ~ data:", data);
+  const { isAuth, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <ScreenWrapper>
+        <View style={Styles.container}>
+          <ActivityIndicator size={"large"} color={"#000"} />
+        </View>
+      </ScreenWrapper>
+    );
+  }
+
+  if (isAuth) {
+    // @ts-ignore
+    return <Redirect href="/(tabs)/settings" />;
+  }
 
   return (
     <ScreenWrapper>
@@ -33,7 +47,10 @@ const AppStartScreen = () => {
             fontFamily={Fonts.nunito}
             title="Sgsits lms is a comprehensive platform designed to enhance the learning experience for students and faculty at SGSITS."
           />
-          <Button title="Getting Started" />
+          <Button
+            onPress={() => router.push("/(routes)/(home)/welcome")}
+            title="Getting Started"
+          />
         </View>
       </View>
     </ScreenWrapper>

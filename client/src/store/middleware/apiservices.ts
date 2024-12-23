@@ -15,7 +15,6 @@ const baseQuery = fetchBaseQuery({
     if (refreshToken) {
       headers.set("refresh-token", refreshToken);
     }
-    console.log(headers)
     return headers;
   },
 });
