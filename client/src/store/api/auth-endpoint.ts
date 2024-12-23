@@ -32,4 +32,4 @@ const AuthEndpoints = ApiServices.injectEndpoints({
   }),
 });
 
-export const { useSignupuserMutation } = AuthEndpoints;
+export const { useSignupuserMutation ,useVerifyUserMutation } = AuthEndpoints;

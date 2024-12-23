@@ -1,1 +1,1 @@
-export const SERVER_URI = "https://swim-type-admissions-showed.trycloudflare.com"
+export const SERVER_URI = "https://curtis-submit-grow-improvement.trycloudflare.com"
