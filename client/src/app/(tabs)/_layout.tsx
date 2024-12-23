@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons"; // Import Ionicons
 import colors from "@/constants/colors"; // Ensure this is correctly imported
 import { wp } from "@/utils/common"; // Ensure this is correctly imported
 import { View } from "react-native";
+import TopBar from "@/components/shared/topbar";
 
 export default function TabLayout() {
   return (
@@ -37,16 +38,16 @@ export default function TabLayout() {
                 height: 40,
                 width: 40,
                 borderRadius: 20,
-                backgroundColor: focused ? colors.primary : "transparent",
+                backgroundColor: focused ? colors.secondary : "transparent",
                 padding: focused ? 5 : 0,
                 position: "absolute",
-                bottom: 7,
+                top: 0,
               }}
             >
               <Ionicons
                 name={iconName}
                 size={size}
-                color={focused ? "white" : color}
+                color={focused ? "black" : colors.primary}
               />
             </View>
           );
@@ -56,19 +57,9 @@ export default function TabLayout() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: colors.paleblue,
-          marginHorizontal: 10,
-          borderRadius: 12,
-          position: "absolute",
-          bottom: 5,
-          left: 10,
-          right: 10,
-          borderTopWidth: 0,
-          shadowOpacity: 0.1,
-          shadowRadius: 10,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-around",
+          backgroundColor: colors.palepurple,
+          borderTopColor: colors.secondary,
+          borderTopWidth:2
         },
       })}
     >

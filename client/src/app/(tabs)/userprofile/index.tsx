@@ -1,12 +1,9 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text } from "react-native";
+import React from "react";
+import UserProfileTabScreen from "@/screens/user-profile.tab.screen";
 
 const UserProfileTab = () => {
-  return (
-    <View>
-      <Text>UserProfileTab</Text>
-    </View>
-  )
-}
+  return <UserProfileTabScreen />;
+};
 
-export default UserProfileTab
+export default UserProfileTab;

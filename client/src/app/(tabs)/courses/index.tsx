@@ -1,12 +1,9 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text } from "react-native";
+import React from "react";
+import CourseTabScreen from "@/screens/course.tab.screen";
 
 const CoursesTab = () => {
-  return (
-    <View>
-      <Text>HomeTab</Text>
-    </View>
-  )
-}
+  return <CourseTabScreen />;
+};
 
-export default CoursesTab
+export default CoursesTab;

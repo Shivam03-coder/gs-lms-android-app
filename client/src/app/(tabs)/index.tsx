@@ -1,9 +1,8 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { Redirect } from "expo-router";
+import HomeTabScreen from "@/screens/home.tab.screen";
 
 const TabIndex = () => {
-  return <View>Hiii</View>;
+  return <HomeTabScreen />;
 };
 
 export default TabIndex;

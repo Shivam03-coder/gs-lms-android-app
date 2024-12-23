@@ -1,12 +1,9 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text } from "react-native";
+import React from "react";
+import SearchTabScreen from "@/screens/search.tab.screen";
 
 const SearchTab = () => {
-  return (
-    <View>
-      <Text>SearchTab</Text>
-    </View>
-  )
-}
+  return <SearchTabScreen />;
+};
 
-export default SearchTab
+export default SearchTab;
