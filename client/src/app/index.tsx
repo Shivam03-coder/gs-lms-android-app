@@ -7,9 +7,9 @@ import React from "react";
 import { View } from "react-native";
 
 const Index = () => {
-  const { isAuth, isLoading } = useAuth();
+  const { isAuth, Loading } = useAuth();
 
-  if (isLoading) {
+  if (Loading) {
     return (
       <ScreenWrapper>
         <View style={Styles.container}>
@@ -18,9 +18,9 @@ const Index = () => {
       </ScreenWrapper>
     );
   }
-
   if (isAuth) {
-    return <Redirect href="/(tabs)/home/index" />;
+    // @ts-ignore
+    return <Redirect href="/(tabs)" />;
   }
 
   // Redirect to login page if not authenticated

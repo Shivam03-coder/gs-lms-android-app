@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const SettingsTab = () => {
+const CoursesTab = () => {
   return (
     <View>
-      <Text>SettingsTab</Text>
+      <Text>HomeTab</Text>
     </View>
   )
 }
 
-export default SettingsTab
+export default CoursesTab

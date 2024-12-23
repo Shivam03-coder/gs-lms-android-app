@@ -3,7 +3,7 @@ import React from "react";
 import { Redirect } from "expo-router";
 
 const TabIndex = () => {
-  return <Redirect href={"/(tabs)/userprofile/index"} />;
+  return <View>Hiii</View>;
 };
 
 export default TabIndex;

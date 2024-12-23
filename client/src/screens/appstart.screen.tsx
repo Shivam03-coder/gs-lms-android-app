@@ -8,27 +8,10 @@ import colors from "@/constants/colors";
 import { Fonts } from "@/constants/fonts";
 import { hp } from "@/utils/common";
 import Button from "@/components/ui/button";
-import { Redirect, router } from "expo-router";
-import useAuth from "@/hooks/useAuth";
+import { router } from "expo-router";
 
 const AppStartScreen = () => {
-  const { isAuth, isLoading } = useAuth();
-
-  if (isLoading) {
-    return (
-      <ScreenWrapper>
-        <View style={Styles.container}>
-          <ActivityIndicator size={"large"} color={"#000"} />
-        </View>
-      </ScreenWrapper>
-    );
-  }
-
-  if (isAuth) {
-    // @ts-ignore
-    return <Redirect href="/(tabs)/settings" />;
-  }
-
+ 
   return (
     <ScreenWrapper>
       <View style={Styles.container}>
