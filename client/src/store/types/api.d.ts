@@ -30,3 +30,11 @@ export interface LoginResponse extends ApiRes {
     refreshToken: string;
   };
 }
+
+export interface UserInfo extends ApiRes {
+  data: {
+    id: string;
+    role: string;
+    emailAddress: string;
+  };
+}

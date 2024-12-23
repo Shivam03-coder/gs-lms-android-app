@@ -8,9 +8,13 @@ import colors from "@/constants/colors";
 import { Fonts } from "@/constants/fonts";
 import { hp } from "@/utils/common";
 import Button from "@/components/ui/button";
-import { router } from "expo-router";
+import { useUserInfoQuery } from "@/store/api/protected-route";
 
 const AppStartScreen = () => {
+  const { data, error } = useUserInfoQuery();
+  console.log("🚀 ~ AppStartScreen ~ error:", error)
+  console.log("🚀 ~ AppStartScreen ~ data:", data);
+
   return (
     <ScreenWrapper>
       <View style={Styles.container}>
@@ -29,16 +33,12 @@ const AppStartScreen = () => {
             fontFamily={Fonts.nunito}
             title="Sgsits lms is a comprehensive platform designed to enhance the learning experience for students and faculty at SGSITS."
           />
-          <Button
-            onPress={() => router.push("/(routes)/(home)/welcome")}
-            title="Getting Started"
-          />
+          <Button title="Getting Started" />
         </View>
       </View>
     </ScreenWrapper>
   );
 };
-
 
 const onboardingstyles = StyleSheet.create({
   textcontainer: {

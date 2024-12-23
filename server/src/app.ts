@@ -6,7 +6,6 @@ import bodyParser from "body-parser";
 import { ApiError } from "./helpers/server-functions";
 import { AppRouter } from "./routes/user-auth.routers";
 export const app = express();
-import cookieParser from "cookie-parser";
 import { passport} from "@src/libs/passport-jwt";
 
 // MIDDLE WARES
@@ -21,7 +20,6 @@ app.use(
 app.use(morgan("common"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cookieParser());
 app.use(passport.initialize());
 
 // ROUTES
