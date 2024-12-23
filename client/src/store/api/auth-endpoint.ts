@@ -2,6 +2,8 @@ import { ApiServices } from "../middleware/apiservices";
 import {
   ApiRes,
   EmailVerifyInfo,
+  LoginResponse,
+  UserCredentials,
   UserSignUpInfo,
   UserSignupResData,
 } from "../types/api";
@@ -29,7 +31,20 @@ const AuthEndpoints = ApiServices.injectEndpoints({
         body: otp,
       }),
     }),
+
+    LoginUser: build.mutation<LoginResponse, UserCredentials>({
+      query: (UserCred) => ({
+        url: "/auth/signin",
+        method: "POST",
+        headers,
+        body: UserCred,
+      }),
+    }),
   }),
 });
 
-export const { useSignupuserMutation ,useVerifyUserMutation } = AuthEndpoints;
+export const {
+  useSignupuserMutation,
+  useVerifyUserMutation,
+  useLoginUserMutation,
+} = AuthEndpoints;

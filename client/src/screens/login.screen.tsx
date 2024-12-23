@@ -23,23 +23,48 @@ import Button from "@/components/ui/button";
 import colors from "@/constants/colors";
 import { router } from "expo-router";
 import { useAppSelector } from "@/store/store";
+import { useLoginUserMutation } from "@/store/api/auth-endpoint";
+import { useToast } from "react-native-toast-notifications";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = () => {
   const [ShowPassword, setShowPassword] = useState<boolean>(false);
   const [Email, setEmail] = useState<string>("");
   const [Password, setPassword] = useState("");
-  const [Loading, setLoading] = useState<boolean>(false);
-  const { value } = useAppSelector((state) => state.global);
-  console.log("🚀 ~ LoginScreen ~ value:", value);
+  const [LoginUser, { isLoading }] = useLoginUserMutation();
+  const toast = useToast();
 
   // FORM SUBMISSION
-  const handelForm = () => {
-    setLoading(true);
-    console.log(Email);
-    console.log(Password);
-    setPassword("");
-    setEmail("");
-    setLoading(false);
+  const handelForm = async () => {
+    if (!Email.trim() || !Password.trim()) {
+      toast.show("❗ Please provide email and password", { type: "danger" });
+      return;
+    }
+
+    try {
+      const { code, data, message } = await LoginUser({
+        emailAddress: Email.trim(),
+        password: Password.trim(),
+      }).unwrap();
+
+      if (code === 200) {
+        await AsyncStorage.setItem("accessToken", data.accessToken);
+        await AsyncStorage.setItem("refreshToken", data.refreshToken);
+        toast.show("🎉 User login successful! 🎉", { type: "success" });
+        router.push("/");
+        setPassword("");
+        setEmail("");
+      } else {
+        toast.show(message || "❌ User login failed! Please try again.", {
+          type: "danger",
+        });
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      toast.show("⚠️ An error occurred ⚠️", {
+        type: "danger",
+      });
+    }
   };
 
   return (
@@ -98,7 +123,7 @@ const LoginScreen = () => {
 
               {/* Login Button */}
               <Button
-                loading={Loading}
+                loading={isLoading}
                 onPress={handelForm}
                 width={90}
                 title="Login"
