@@ -8,7 +8,6 @@ const useAuth = () => {
   const [isAuth, setisAuth] = useState<boolean>(false);
   const { data: Userinfo, isLoading } = useUserInfoQuery();
 
-  if (!isLoading && Userinfo) {
     (async () => {
       const userId = await AsyncStorage.getItem("userId");
       const token = await AsyncStorage.getItem("accessToken");
@@ -17,7 +16,6 @@ const useAuth = () => {
         setisAuth(true);
       }
     })();
-  }
   return { UserId, isAuth, isLoading };
 };
 
