@@ -36,25 +36,25 @@ const SignUpScreen = () => {
         toast.show("All fields are required.", { type: "danger" });
         return;
       }
-      const res = await SignUpUser({
+      const { code, data, message } = await SignUpUser({
         emailAddress: Email.trim(),
         name: Name.trim(),
         password: Password.trim(),
       }).unwrap();
 
       // Handle success response
-      if (res.code === 200 && res.data) {
-        // Store res.is in AsyncStorage
-        await AsyncStorage.setItem("userId", JSON.stringify(res.data.id));
+      if (code === 200 && data) {
+        // Store res.data.id in AsyncStorage
+        await AsyncStorage.setItem("userId", JSON.stringify(data.id));
         toast.show("USer Signup successful!", { type: "success" });
+        router.push("/(routes)/(auth)/verify");
         setName("");
         setName("");
         setPassword("");
       } else {
-        toast.show(res.message || "Something went wrong.", { type: "danger" });
+        toast.show(message || "Something went wrong.", { type: "danger" });
       }
     } catch (error) {
-      console.log("🚀 ~ handelForm ~ error:", error);
       toast.show("An unexpected error occurred.", { type: "danger" });
     }
   };
