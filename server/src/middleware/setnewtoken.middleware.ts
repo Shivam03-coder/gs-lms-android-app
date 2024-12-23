@@ -7,11 +7,7 @@ export const GetnewToken = AsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const accessToken = req.headers["authorization"]?.split(" ")[1];
-      console.log("🚀 ~ accessToken:", accessToken)
       const refreshToken = req.headers["refresh-token"];
-      console.log("🚀 ~ refreshToken:", refreshToken)
-
-      console.log(req);
 
       if (!accessToken && !refreshToken) {
         throw new ApiError(401, "Unauthorized - Tokens not provided");
