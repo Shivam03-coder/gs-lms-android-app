@@ -10,35 +10,35 @@ const slides = [
   { id: 4, src: require("@/assets/images/g4.png") },
 ];
 
-const styles = StyleSheet.create({
-  slide: {
-    height: hp(30),
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 12,
-    overflow: "hidden", 
-  },
-  image: {
-    width: "100%", 
-    height: "100%", 
-    resizeMode: "cover", // Ensures the image scales correctly
-  },
-});
-
 const SwiperComponent = () => (
-  <Swiper
-    autoplay
-    style={{ marginVertical: hp(2) }}
-    showsPagination={false}
-    loop
-    autoplayTimeout={3}
-  >
-    {slides.map((slide) => (
-      <View key={slide.id} style={styles.slide}>
-        <Image source={slide.src} style={styles.image} />
-      </View>
-    ))}
-  </Swiper>
+  <View style={styles.container}>
+    <Swiper autoplay showsPagination={false} loop autoplayTimeout={2}>
+      {slides.map((slide) => (
+        <View key={slide.id} style={styles.slide}>
+          <Image source={slide.src} style={styles.image} />
+        </View>
+      ))}
+    </Swiper>
+  </View>
 );
 
 export default SwiperComponent;
+
+const styles = StyleSheet.create({
+  container: {
+    height: hp(30),
+    borderRadius: 12,
+    overflow: "hidden",
+    marginVertical: hp(3),
+  },
+  slide: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
+});

@@ -1,5 +1,5 @@
 import React, { Children } from "react";
-import { View, StyleProp, ViewStyle } from "react-native";
+import { View, StyleProp, ViewStyle, ScrollView } from "react-native";
 import TopBar from "../topbar";
 import ScreenWrapper from "./screen-wrapper";
 
@@ -15,7 +15,12 @@ const ScreenTopBarWrapper: React.FC<ScreenTopBarWrapperprop> = ({
   return (
     <View style={[{ flex: 1 }, ScreenStyle]}>
       <TopBar />
-      <ScreenWrapper>{children}</ScreenWrapper>
+      <ScreenWrapper>
+        {" "}
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          {children}
+        </ScrollView>
+      </ScreenWrapper>
     </View>
   );
 };

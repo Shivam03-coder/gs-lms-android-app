@@ -7,7 +7,7 @@ const colors = {
   border: "#87A2FF", // Light Blue (Sky Blue)
   yellow: "#FFE700", // Yellow
   error: "#e74c3c", // Red (Vivid)
-  link: "#3498db", // Blue (Bright Sky Blue)
+  link: "#4CC9FE", // Blue (Bright Sky Blue)
   blue: "#0D92F4", // Blue (Bright Sky Blue)
 };
 

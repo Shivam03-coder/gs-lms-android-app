@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: wp(3),
-    paddingVertical: hp(2),
     justifyContent: "space-between",
   },
   userInfoContainer: {
