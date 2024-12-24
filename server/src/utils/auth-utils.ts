@@ -68,16 +68,13 @@ export class AuthUtility {
       const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
         AuthUtility.generateTokens(user);
 
-      // Update the refresh token in the database
       await db.token.update({
         where: { refreshToken: oldRefreshToken },
         data: { refreshToken: newRefreshToken },
       });
 
-      // Return the new tokens
       return { newAccessToken, newRefreshToken };
     } catch (err: any) {
-      // Handle unexpected errors
       throw new ApiError(500, err.message || "Unexpected error occurred");
     }
   };

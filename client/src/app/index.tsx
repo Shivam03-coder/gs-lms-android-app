@@ -3,12 +3,11 @@ import ScreenWrapper from "@/components/shared/providers/screen-wrapper";
 import useAuth from "@/hooks/useAuth";
 import { Styles } from "@/styles/global";
 import { Redirect } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 
 const Index = () => {
   const { isAuth, Loading } = useAuth();
-
   if (Loading) {
     return (
       <ScreenWrapper>
