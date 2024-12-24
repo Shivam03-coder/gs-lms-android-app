@@ -36,5 +36,6 @@ export interface UserInfo extends ApiRes {
     id: string;
     role: string;
     emailAddress: string;
+    name: string;
   };
 }

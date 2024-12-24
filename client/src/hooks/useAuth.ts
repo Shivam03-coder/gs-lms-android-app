@@ -42,12 +42,7 @@ const useAuth = () => {
   // Combine external loading and internal `Loading` state
   const isOverallLoading = Loading || userInfoLoading;
 
-  console.log("Userinfo:", Userinfo);
-  console.log(UserId);
-  console.log(isAuth);
-
-
-  return { UserId, isAuth, Loading: isOverallLoading };
+  return { UserId, isAuth, Userinfo, Loading: isOverallLoading };
 };
 
 export default useAuth;

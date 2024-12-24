@@ -25,6 +25,7 @@ passport.use(
           id: true,
           role: true,
           emailAddress: true,
+          name: true,
         },
       });
 
