@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root,
+  .app {
+    font-family: var(--font-inter), sans-serif;
+    height: 100vh;
+    width: 100%;
+    @apply text-base font-inter;
+  }
+
+  html {
+    --font-inter: "Inter", sans-serif;
+  }
+
+  :root {
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  :root {
+    --color-primary: #040d12;
+    --color-secondary: #f2f8ff;
+    --color-main: #3b82f6;
+    --color-dark: #1f1f23;
+  }
+
+  h1 {
+    @apply text-5xl font-semibold leading-tight;
+  }
+
+  h2 {
+    @apply text-4xl font-bold leading-snug;
+  }
+
+  h3 {
+    @apply text-3xl font-semibold leading-snug;
+  }
+
+  h4 {
+    @apply text-xl font-medium leading-snug;
+  }
+
+  h5 {
+    @apply text-lg font-medium leading-snug;
+  }
+
+  h6 {
+    @apply text-base font-medium leading-snug;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+@layer utilities {
+  .page {
+    @apply lg:p-6 xl:p-4;
+  }
+
+  .padding {
+    @apply px-4 py-5;
+  }
+
+  .center {
+    @apply flex items-center justify-center;
+  }
+
+  .opacityBg {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.05), transparent);
+  }
+}
+
+.cl-internal-1dauvpw,
+.cl-userButtonPopoverFooter {
+  display: none;
+}
+
+.cl-userButtonPopoverCard {
+  background-color: var(--color-secondary);
+}
+
+.cl-button {
+  background-color: var(--color-main);
+  color: black;
+  outline: none;
+  border: none;
+  text-transform: uppercase;
+}
+
+.cl-internal-1pr5xvn {
+  text-transform: uppercase;
+  color: var(--color-main);
+}
+
+.cl-rootBox {
+  @apply rounded-xl border-2 border-blue-500;
+}
