@@ -1,12 +1,9 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text } from "react-native";
+import React from "react";
+import CourseScreen from "@/screens/course.screen";
 
 const Course = () => {
-  return (
-    <View>
-      <Text>Course</Text>
-    </View>
-  )
-}
+  return <CourseScreen />;
+};
 
-export default Course
+export default Course;
