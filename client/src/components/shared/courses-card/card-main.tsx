@@ -94,27 +94,7 @@ const CardMain = () => {
               />
             </View>
             <View>
-              <Paragraph
-                textstyle={styles.studentCountText}
-                fontFamily={Fonts.roboto}
-                title={`${item.studentCount} Students`}
-              />
-            </View>
-          </View>
-
-          {/* Price and  Lesson  */}
-          <View style={styles.priceContainer}>
-            <Paragraph textstyle={styles.priceText} title={item.price} />
-            <View style={styles.classroomContainer}>
-              <MaterialCommunityIcons
-                name="google-classroom"
-                size={30}
-                color="black"
-              />
-              <Paragraph
-                textstyle={styles.priceText}
-                title={`${item.lessons} Lessons`}
-              />
+              <Paragraph textstyle={styles.priceText} title={item.price} />
             </View>
           </View>
         </TouchableOpacity>
@@ -128,21 +108,20 @@ const styles = StyleSheet.create({
     paddingBottom: hp(2), // Add bottom padding
   },
   card: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.dark,
     width: "100%",
     minHeight: hp(35),
     marginTop: hp(3),
     borderRadius: 18,
-    padding: wp(2),
-    elevation: 8, // For Android shadow
-    shadowColor: "#000", // iOS shadow
+    elevation: 2,
+    shadowColor: colors.palepurple,
     shadowOpacity: 0.15,
     shadowRadius: 8,
-    shadowOffset: { width: 0, height: 5 },
   },
   imageContainer: {
     overflow: "hidden",
-    borderRadius: 18,
+    borderTopEndRadius: 18,
+    borderTopStartRadius: 18,
     marginBottom: wp(3),
   },
   cardImage: {
@@ -151,20 +130,13 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   cardText: {
-    fontSize: hp(2),
-    paddingHorizontal: wp(4),
-    paddingVertical: wp(3),
-    fontFamily: Fonts.inter,
+    fontSize: hp(1.8),
+    paddingHorizontal: wp(2.3),
+    paddingVertical: wp(1),
     textAlign: "justify",
-    fontWeight: "600",
-    backgroundColor: "white",
-    borderRadius: 10,
-    marginBottom: wp(3),
-    color: colors.primary,
+    fontWeight: "500",
     shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    shadowOffset: { width: 0, height: 2 },
+    color: colors.secondary,
   },
   ratingContainer: {
     paddingHorizontal: wp(3),
@@ -174,35 +146,16 @@ const styles = StyleSheet.create({
     marginBottom: wp(3),
   },
   rating: {
-    backgroundColor: colors.primary,
-    paddingHorizontal: wp(5),
-    paddingVertical: wp(2),
     borderRadius: 8,
     flexDirection: "row",
     alignItems: "center",
-    gap: 5,
+    gap: wp(3),
   },
-  studentCountText: {
-    fontWeight: "600",
-    opacity: 0.8,
-    color: colors.primary,
-  },
-  priceContainer: {
-    paddingHorizontal: wp(4),
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
+
   priceText: {
     fontWeight: "700",
     fontSize: hp(2.2),
-    color: colors.primary,
-  },
-  classroomContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 10,
+    color: colors.secondary,
   },
 });
 

@@ -7,7 +7,7 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 const CourseCardHeader = () => {
   return (
     <View style={styles.headerContainer}>
-      <Paragraph textstyle={styles.courseTitle} title="Sgsits Courses" />
+      <Paragraph textstyle={styles.courseTitle} title="Courses" />
       <TouchableOpacity onPress={() => router.push("/(tabs)/courses")}>
         <Paragraph textstyle={styles.seeAllLink} title="See All" />
       </TouchableOpacity>

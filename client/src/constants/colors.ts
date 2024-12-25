@@ -9,6 +9,7 @@ const colors = {
   error: "#e74c3c", // Red (Vivid)
   link: "#4CC9FE", // Blue (Bright Sky Blue)
   blue: "#0D92F4", // Blue (Bright Sky Blue)
+  dark : "#021526"
 };
 
 export default colors;
