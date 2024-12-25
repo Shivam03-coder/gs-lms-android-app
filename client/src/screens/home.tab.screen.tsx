@@ -7,9 +7,7 @@ import React from "react";
 const HomeTabScreen = () => {
   return (
     <ScreenTopBarWrapper>
-      <SearchBar />
-      <SwiperComponent />
-      <CourseCards/>
+      <CourseCards />
     </ScreenTopBarWrapper>
   );
 };

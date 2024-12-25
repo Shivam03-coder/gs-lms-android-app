@@ -12,7 +12,10 @@ import { Paragraph } from "@/components/ui/texts";
 import { Fonts } from "@/constants/fonts";
 import colors from "@/constants/colors";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";  // Use useRouter for navigation
+import { useRouter } from "expo-router"; // Use useRouter for navigation
+import SwiperComponent from "../swiper";
+import CourseCardHeader from "./card-header";
+import SearchBar from "../searchbar";
 
 // Sample data array
 const cardData = [
@@ -49,11 +52,11 @@ const cardData = [
 ];
 
 const CardMain = () => {
-  const router = useRouter();  // Use router for navigation
+  const router = useRouter(); // Use router for navigation
 
   // Function to handle card press
-  const handleCardPress = (id:number) => {
-    router.push(`/(routes)/(root)/course/index`);  // Navigate to course details page
+  const handleCardPress = (id: number) => {
+    router.push(`/(routes)/(root)/course`); // Navigate to course details page
   };
 
   return (
@@ -61,8 +64,18 @@ const CardMain = () => {
       data={cardData}
       keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={styles.scrollContainer} // Use this for padding inside FlatList
+      ListHeaderComponent={
+        <>
+          <SearchBar />
+          <SwiperComponent />
+          <CourseCardHeader />
+        </>
+      }
       renderItem={({ item }) => (
-        <TouchableOpacity onPress={() => handleCardPress(item.id)} style={styles.card}>
+        <TouchableOpacity
+          onPress={() => handleCardPress(item.id)}
+          style={styles.card}
+        >
           {/* Card Image */}
           <View style={styles.imageContainer}>
             <Image source={item.imageSource} style={styles.cardImage} />
@@ -112,7 +125,7 @@ const CardMain = () => {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    paddingBottom: hp(2),  // Add bottom padding
+    paddingBottom: hp(2), // Add bottom padding
   },
   card: {
     backgroundColor: colors.secondary,

@@ -4,12 +4,7 @@ import CourseCardHeader from "./card-header";
 import CardMain from "./card-main";
 
 const CourseCards = () => {
-  return (
-    <View>
-      <CourseCardHeader />
-      <CardMain />
-    </View>
-  );
+  return <CardMain />;
 };
 
 export default CourseCards;

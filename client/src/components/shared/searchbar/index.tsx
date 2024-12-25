@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: wp(2),
     columnGap: wp(3),
+    marginTop: 5,
   },
   input: {
     flex: 1,
@@ -50,8 +51,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondary,
     borderRadius: wp(1),
     color: colors.primary,
-    fontFamily:Fonts.inter,
-    fontSize:hp(1.9)
+    fontFamily: Fonts.inter,
+    fontSize: hp(1.9),
   },
   button: {
     height: "auto",

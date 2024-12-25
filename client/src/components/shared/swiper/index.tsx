@@ -4,10 +4,9 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import Swiper from "react-native-swiper";
 
 const slides = [
-  { id: 1, src: require("@/assets/images/g1.png") },
-  { id: 2, src: require("@/assets/images/g2.png") },
   { id: 3, src: require("@/assets/images/g3.png") },
-  { id: 4, src: require("@/assets/images/g4.png") },
+  { id: 2, src: require("@/assets/images/g2.png") },
+  { id: 1, src: require("@/assets/images/g1.png") },
 ];
 
 const SwiperComponent = () => (
