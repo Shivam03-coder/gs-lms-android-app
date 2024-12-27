@@ -5,13 +5,6 @@ import colors from "@/constants/colors"; // Assuming you have a colors file
 const About = () => {
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Course Overview</Text>
-        <Text style={styles.subtitle}>
-          Master the fundamentals of web development!
-        </Text>
-      </View>
-
       <View style={styles.content}>
         <Text style={styles.paragraph}>
           This course is designed for beginners who want to get started with web
@@ -55,10 +48,9 @@ export default About;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.blue,
     paddingHorizontal: 20,
     paddingVertical: 30,
-    borderRadius:12
+    borderRadius: 12,
   },
   header: {
     marginBottom: 20,

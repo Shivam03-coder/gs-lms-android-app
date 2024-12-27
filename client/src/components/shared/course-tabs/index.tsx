@@ -6,10 +6,11 @@ import { hp, wp } from "@/utils/common";
 import About from "./about";
 import Lessons from "./lessons";
 import Reviews from "./reviews";
+import { Fonts } from "@/constants/fonts";
 
 const CourseTabs = () => {
   const [active, setActive] = useState<string>("About");
-  console.log("🚀 ~ CourseTabs ~ active:", active)
+  console.log("🚀 ~ CourseTabs ~ active:", active);
 
   const renderTab = (title: string) => {
     return (
@@ -70,6 +71,6 @@ const styles = StyleSheet.create({
     paddingVertical: wp(2),
   },
   activeTabText: {
-    color: colors.primary,
+    color: colors.secondary,
   },
 });
