@@ -31,7 +31,7 @@ const Inputbox = forwardRef<TextInput, InputProps>((props, ref) => {
         ref={ref}
         style={[styles.TextInputStyle, TextInputStyle]}
         placeholderTextColor="black"
-        {...TextInputProps} // Spread remaining TextInput props
+        {...TextInputProps}
       />
       {posticon}
     </View>

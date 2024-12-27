@@ -36,7 +36,10 @@ const CourseScreen = () => {
                 <Paragraph textstyle={styles.yellowText} title="2.8" />
               </View>
               <View>
-                <Paragraph textstyle={styles.priceText} title="$34" />
+                <Paragraph
+                  textstyle={styles.priceText}
+                  title="Prof. Shivam Anand"
+                />
               </View>
             </View>
           </View>
@@ -87,7 +90,6 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     marginBottom: wp(3),
     position: "relative",
-    
   },
   cardImage: {
     height: 240,

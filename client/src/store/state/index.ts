@@ -1,29 +1,22 @@
 // src/features/counterSlice.ts
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface CounterState {
-  value: number;
+  isReviewSheetOpen: boolean;
 }
 
 const initialState: CounterState = {
-  value: 0,
+  isReviewSheetOpen: false,
 };
 
 export const globalState = createSlice({
-  name: 'counter',
+  name: "counter",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+    setIsReviewSheetOpen: (state) => {
+      state.isReviewSheetOpen = !state.isReviewSheetOpen;
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = globalState.actions;
-
+export const { setIsReviewSheetOpen } = globalState.actions;

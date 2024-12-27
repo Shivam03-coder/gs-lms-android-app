@@ -10,7 +10,6 @@ import { Fonts } from "@/constants/fonts";
 
 const CourseTabs = () => {
   const [active, setActive] = useState<string>("About");
-  console.log("🚀 ~ CourseTabs ~ active:", active);
 
   const renderTab = (title: string) => {
     return (
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   tabButton: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.dark,
     borderRadius: wp(6),
     flex: 1,
     marginHorizontal: 5,
@@ -62,15 +61,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   activeTabButton: {
-    backgroundColor: colors.palepurple,
+    backgroundColor: colors.secondary,
   },
   tabText: {
-    color: colors.primary,
+    color: colors.secondary,
     textAlign: "center",
     width: "100%",
     paddingVertical: wp(2),
   },
   activeTabText: {
-    color: colors.secondary,
+    color: colors.primary,
   },
 });

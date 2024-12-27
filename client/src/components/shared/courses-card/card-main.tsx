@@ -21,7 +21,7 @@ import SearchBar from "../searchbar";
 const cardData = [
   {
     id: 1,
-    imageSource: require("@/assets/images/yt.jpg"), // Image for Video 1
+    imageSource: require("@/assets/images/yt.jpg"),
     description:
       "This video teaches the basics of React Native, focusing on layout, styling, and component usage. Perfect for beginners!",
     rating: 2.9,
@@ -31,7 +31,7 @@ const cardData = [
   },
   {
     id: 2,
-    imageSource: require("@/assets/images/yt2.jpg"), // Image for Video 2
+    imageSource: require("@/assets/images/yt2.jpg"),
     description:
       "An advanced tutorial on React Native that covers state management, navigation, and hooks. Ideal for developers with some experience.",
     rating: 4.5,
@@ -41,7 +41,7 @@ const cardData = [
   },
   {
     id: 3,
-    imageSource: require("@/assets/images/yt3.jpg"), // Image for Video 3
+    imageSource: require("@/assets/images/yt3.jpg"),
     description:
       "Learn about integrating backend services with React Native, including how to set up APIs and handle data fetching and state.",
     rating: 3.8,
@@ -94,7 +94,7 @@ const CardMain = () => {
               />
             </View>
             <View>
-              <Paragraph textstyle={styles.priceText} title={item.price} />
+              <Paragraph textstyle={styles.priceText} title={`${item.lessons} students`} />
             </View>
           </View>
         </TouchableOpacity>
