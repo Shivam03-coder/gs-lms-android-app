@@ -47,7 +47,7 @@ export default function TabLayout() {
               <Ionicons
                 name={iconName}
                 size={size}
-                color={focused ? "black" : colors.primary}
+                color={focused ? "black" : colors.secondary}
               />
             </View>
           );
@@ -57,9 +57,8 @@ export default function TabLayout() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: colors.palepurple,
-          borderTopColor: colors.secondary,
-          borderTopWidth:2
+          backgroundColor: colors.dark,
+          borderTopWidth: 0,
         },
       })}
     >
