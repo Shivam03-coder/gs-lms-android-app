@@ -17,12 +17,12 @@ const ReturnButton = ({ url }: { url?: RelativePathString }) => {
         justifyContent: "center",
         alignItems: "center",
         borderRadius: hp(1),
-        borderWidth: 0.3,
+        borderWidth: 0.6,
         borderColor:colors.secondary
       }}
       onPress={() => router.push(url!)}
     >
-      <AntDesign name="back" size={24} color={colors.palepurple} />
+      <AntDesign name="back" size={24} color={colors.secondary} />
     </TouchableOpacity>
   );
 };

@@ -11,7 +11,6 @@ import Button from "@/components/ui/button";
 import { router } from "expo-router";
 
 const AppStartScreen = () => {
- 
   return (
     <ScreenWrapper>
       <View style={Styles.container}>
@@ -23,7 +22,7 @@ const AppStartScreen = () => {
         <View style={onboardingstyles.textcontainer}>
           <Heading3
             textstyle={{ color: colors.secondary }}
-            title="SGSITS LMS"
+            title="GS-LMS"
           />
           <Paragraph
             textstyle={onboardingstyles.paragraphtext}
