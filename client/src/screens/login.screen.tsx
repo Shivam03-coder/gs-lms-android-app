@@ -54,6 +54,7 @@ const LoginScreen = () => {
         router.push("/");
         setPassword("");
         setEmail("");
+        router.push("/(tabs)");
       } else {
         toast.show(message || "❌ User login failed! Please try again.", {
           type: "danger",

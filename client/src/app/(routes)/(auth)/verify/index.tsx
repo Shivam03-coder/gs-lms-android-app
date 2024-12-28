@@ -7,6 +7,7 @@ import { useVerifyUserMutation } from "@/store/api/auth-endpoint";
 import { Styles } from "@/styles/global";
 import { hp, wp } from "@/utils/common";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 import React, { createRef, useRef, useState } from "react";
 import { TextInput, View, StyleSheet, Pressable } from "react-native";
 import { useToast } from "react-native-toast-notifications";
@@ -45,11 +46,11 @@ const Verify = () => {
       }
 
       const { data } = await VerifyUser({ email, otp });
-      console.log("🚀 ~ handleOTPverify ~ data:", data)
 
       if (data?.code === 200) {
         toast.show("Email verified successfully", { type: "success" });
         setCode([]);
+        router.push("/(routes)/(auth)/login");
       } else {
         toast.show("OTP verification failed. Please try again.", {
           type: "danger",
