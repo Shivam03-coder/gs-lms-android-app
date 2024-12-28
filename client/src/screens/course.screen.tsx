@@ -5,6 +5,7 @@ import {
   Image,
   FlatList,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import ScreenWrapper from "@/components/shared/providers/screen-wrapper";
@@ -14,6 +15,9 @@ import { AntDesign } from "@expo/vector-icons";
 import colors from "@/constants/colors";
 import { Fonts } from "@/constants/fonts";
 import CourseTabs from "@/components/shared/course-tabs";
+import ReturnButton from "@/components/ui/return-button";
+import { RelativePathString } from "expo-router";
+import Button from "@/components/ui/button";
 
 const CourseScreen = () => {
   return (
@@ -21,8 +25,10 @@ const CourseScreen = () => {
       <ScrollView
         style={{
           flexGrow: 1,
+          gap: wp(2),
         }}
       >
+        <ReturnButton url={"/(tabs)" as RelativePathString} />
         {/* Card Image */}
         <View style={styles.imageContainer}>
           <Image
@@ -42,6 +48,73 @@ const CourseScreen = () => {
                 />
               </View>
             </View>
+          </View>
+        </View>
+
+        {/*  Button */}
+        <View
+          style={{
+            flexDirection: "row",
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Paragraph
+            textstyle={{
+              color: colors.secondary,
+            }}
+            title="WEB DEVELOPMENT"
+          />
+          <View
+            style={{
+              flexDirection: "row",
+              gap: wp(4),
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                backgroundColor: colors.dark,
+                padding: wp(3),
+                marginVertical: wp(3),
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: hp(1),
+              }}
+            >
+              <AntDesign name="plus" size={24} color={colors.secondary} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: colors.dark,
+                padding: wp(3),
+                marginVertical: wp(3),
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: hp(1),
+              }}
+            >
+              <AntDesign
+                name="clockcircleo"
+                size={24}
+                color={colors.secondary}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: colors.dark,
+                padding: wp(3),
+                marginVertical: wp(3),
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: hp(1),
+              }}
+            >
+              <AntDesign name="sharealt" size={24} color={colors.secondary} />
+            </TouchableOpacity>
           </View>
         </View>
 
